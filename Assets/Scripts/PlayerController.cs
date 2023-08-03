@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Camera mainCam;
-    [SerializeField] private float speed = 10f;
+    [SerializeField] private float speed = 5f;
+    [HideInInspector] public bool canMove = true;
+    [HideInInspector] public Vector2 mousePos;
 
     void Start()
     {
         mainCam = Camera.main;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     void Update()
@@ -19,11 +22,14 @@ public class PlayerController : MonoBehaviour
 
     void FollowMousePos()
     {
-        Vector2 mousePos = GetMouseWorldPos();
-        
-        //follow
-        transform.position = Vector2.Lerp(transform.position, mousePos, speed * Time.deltaTime);
+        mousePos = GetMouseWorldPos();
 
+        //follow
+        if (canMove) 
+        { 
+            transform.position = Vector2.Lerp(transform.position, mousePos, speed * Time.deltaTime);
+        }
+        
         //rotate
         Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
         transform.up = dir;
