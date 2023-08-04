@@ -109,6 +109,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d8d474da5b865234fb97f0b0a14ae92e, type: 3}
   - {fileID: 8300000, guid: 4c2eba93d271b4f4bb704d1feefbef5d, type: 3}
   - {fileID: 8300000, guid: 48adddadd6cc3794f92994b6e0d2f23f, type: 3}
+  playerInteracted: 0
+  arrived: 0
 --- !u!61 &-1268569275575479651
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -141,7 +143,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07954025, y: -1.0737638}
+  m_Offset: {x: -0.078192234, y: -1.2709312}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -152,7 +154,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 17.346527, y: 26.652472}
+  m_Size: {x: 20.816647, y: 27.046806}
   m_EdgeRadius: 0
 --- !u!50 &-1952237894126774992
 Rigidbody2D:

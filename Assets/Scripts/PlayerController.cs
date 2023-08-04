@@ -58,11 +58,12 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < collisions.Length; i++)
             {
                 sheep[i] = collisions[i].gameObject.GetComponent<SheepController>();
-                sheep[i].playerInteracted = true;
+                sheep[i].playerInteracting = true;
 
-                if (!sheep[i].movingTowardsFence && !sheep[i].arrived)
+                if (!sheep[i].movingTowardsFence && !sheep[i].done && !sheep[i].arrived)
                 { 
                     sheep[i].canMove = true;
+                    sheep[i].movingTowardsFence = true;
                     sheep[i].destination = fenceTarget.position;
                 } 
             }

@@ -14,22 +14,23 @@ public class SheepController : MonoBehaviour
     [SerializeField] private AudioSource audioSrc;
     [SerializeField] private AudioClip[] clips;
     private bool canPlaySound = false;
-    [HideInInspector] public bool playerInteracted = false;
+    [HideInInspector] public bool playerInteracting = false;
     [HideInInspector] public bool arrived = false;
+    [HideInInspector] public bool done = false; //turns true when the sheep is on its merry way to pick a spot in the pen
 
     void Start()
     {
         randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
         destination = randomPos;
         
-        speed = Random.Range(0.8f, 1.5f);
+        speed = Random.Range(0.8f, 1.628f);
 
         StartCoroutine(InitSoundDelay());
     }
 
     void Update()
     {
-        if (canMove)
+        if (canMove && !arrived)
         { 
             RotateToFaceDestination();
             transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
@@ -40,11 +41,18 @@ public class SheepController : MonoBehaviour
             StartCoroutine(PlaySound());
         }
 
-        if (Vector2.Distance(transform.position, destination) <= 0.5f && canMove)
+        if (Vector2.Distance(transform.position, destination) <= 0.2f && canMove)
         {
             canMove = false;
-            if (!movingTowardsFence) StartCoroutine(GetNewRandomPos());
-            else 
+
+            if (!movingTowardsFence && !done)
+            {
+                randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
+                destination = randomPos;
+                canMove = true;
+                //StartCoroutine(GetNewRandomPos());
+            }
+            else if (done && !arrived)
             { 
                 GameManager.Instance.sheepInFence++;
                 arrived = true;
@@ -55,11 +63,14 @@ public class SheepController : MonoBehaviour
 
     IEnumerator GetNewRandomPos()
     {
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
 
-        randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
-        destination = randomPos;
-        canMove = true;
+        if (!movingTowardsFence && !done)
+        {
+            randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
+            destination = randomPos;
+            canMove = true;
+        }
     }
 
     void RotateToFaceDestination()
