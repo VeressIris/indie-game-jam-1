@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,16 +12,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float levelDuration = 10f;
     [SerializeField] private GameObject sheep;
     [SerializeField] private int sheepNumber = 5;
+    private List<Vector2> previousSpawns = new List<Vector2>();
+    private bool winStatus = false;
 
     [Header("Screen Limits")]
     [SerializeField] private Transform leftLimit;
     [SerializeField] private Transform rightLimit;
     [SerializeField] private Transform bottomLimit;
     [SerializeField] private Transform topLimit;
+    [SerializeField] private FenceAreaController fenceController;
 
-    private List<Vector2> previousSpawns = new List<Vector2>();
     [Header("UI")]
     [SerializeField] private TMP_Text timerText;
+    [SerializeField] private GameObject timer;
+    [SerializeField] private GameObject pauseMenu;
+    private bool paused = false;
+    [SerializeField] private GameObject winScreen;
 
     void Awake()
     {
@@ -30,14 +37,30 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SpawnSheep();
+        
+        paused = false;
+        SetUI();
     }
 
     void Update()
     {
-        //timer
-        if (levelDuration > 0) levelDuration -= Time.deltaTime;
-        else Debug.Log("The wolf is coming");
-        UpdateTimerUI();
+        if (fenceController.sheepCount == sheepNumber) Win();
+        else
+        {
+            //timer
+            if (levelDuration > 0)
+            {
+                levelDuration -= Time.deltaTime;
+                UpdateTimerUI();
+            } 
+            else
+            {
+                timerText.text = "Time is out! The Wolf is coming!";
+                //do something
+            }
+            
+            if (Input.GetKeyDown(KeyCode.Escape)) PauseResume();
+        }
     }
 
     void SpawnSheep()
@@ -110,22 +133,39 @@ public class GameManager : MonoBehaviour
         return vec;
     }
 
-    //random spawn point in fence limits
-    public Vector2 GetRandomPos(float minDistance, Vector2 bottomRightCorner, Vector2 topLeftCorner, List<Vector2> previousPos)
+    public void PauseResume()
     {
-        float xPos = Random.Range(topLeftCorner.x, bottomRightCorner.x);
-        float yPos = Random.Range(bottomRightCorner.y, topLeftCorner.y);
-
-        Vector2 vec = new Vector2(xPos, yPos);
-
-        while (!ValidSpawn(vec, minDistance, previousPos))
+        if (!paused)
         {
-            xPos = Random.Range(topLeftCorner.x, bottomRightCorner.x);
-            yPos = Random.Range(bottomRightCorner.y, topLeftCorner.y);
-
-            vec = new Vector2(xPos, yPos);
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+            timer.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+            timer.SetActive(true);
         }
 
-        return vec;
+        paused = !paused;
+    }
+
+    void SetUI()
+    {
+        timer.SetActive(true);
+        pauseMenu.SetActive(false);
+        winScreen.SetActive(false);
+    }
+
+    void Win()
+    {
+        timer.SetActive(false);
+        winScreen.SetActive(true);
+    }
+
+    public void QuitToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 }

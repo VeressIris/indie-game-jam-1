@@ -9,6 +9,7 @@ public class FenceAreaController : MonoBehaviour
     [SerializeField] private BoxCollider2D fenceColl;
     [SerializeField] private GameManager gameManager;
     private List<Vector2> previousPos = new List<Vector2>();
+    public int sheepCount = 0;
 
     void Start()
     {
@@ -24,6 +25,8 @@ public class FenceAreaController : MonoBehaviour
             
             if (!sheepController.movingTowardsFence)
             {
+                sheepCount++;
+
                 sheepController.movingTowardsFence = true;
                 Vector2 fenceDestination = GetRandomFencePos(1.2f);
                 previousPos.Add(fenceDestination);

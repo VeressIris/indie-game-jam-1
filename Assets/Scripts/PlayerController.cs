@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     private SheepController[] sheep;
     [SerializeField] private Transform fenceTarget;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private SpriteRenderer detectionRadiusSR;
+    private Color idleDetColor = new Color(1, 0, 0, 0.14f);
+    private Color detectedColor = new Color(0, 1, 0, 0.08f);
 
     void Start()
     {
@@ -49,6 +52,8 @@ public class PlayerController : MonoBehaviour
     {
         if (DetectSheep())
         {
+            detectionRadiusSR.color = detectedColor;
+
             sheep = new SheepController[collisions.Length];
             for (int i = 0; i < collisions.Length; i++)
             {
@@ -62,6 +67,8 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            detectionRadiusSR.color = idleDetColor;
+
             if (sheep != null && sheep.Length > 0)
             {
                 for (int i = 0; i < sheep.Length; i++)
