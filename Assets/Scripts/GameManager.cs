@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int sheepNumber = 5;
     private List<Vector2> previousSpawns = new List<Vector2>();
     private bool winStatus = false;
+    [HideInInspector] public int sheepInFence;
 
     [Header("Screen Limits")]
     [SerializeField] private Transform leftLimit;
@@ -44,7 +45,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (fenceController.sheepCount == sheepNumber) Win();
+        if (sheepInFence == sheepNumber) Win();
         else
         {
             //timer
