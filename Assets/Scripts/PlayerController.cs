@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Sheep detection:")]
     [SerializeField] private BoxCollider2D col;
-    [SerializeField] private float detectionRadius = 8f;
+    public float detectionRadius = 8f;
     [SerializeField] private LayerMask sheepLayer;
     private Collider2D[] collisions;
     private SheepController[] sheep;
