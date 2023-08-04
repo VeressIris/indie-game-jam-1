@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject sheep;
     [SerializeField] private int sheepNumber = 5;
     private List<Vector2> previousSpawns = new List<Vector2>();
-    private bool winStatus = false;
     [HideInInspector] public int sheepInFence;
+    [HideInInspector] public bool gameOver = false;
 
     [Header("Screen Limits")]
     [SerializeField] private Transform leftLimit;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
     private bool paused = false;
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
 
     void Awake()
     {
@@ -46,6 +47,10 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         if (sheepInFence == sheepNumber) Win();
+        else if (gameOver)
+        {
+            loseScreen.SetActive(true);
+        }
         else
         {
             //timer
@@ -157,6 +162,7 @@ public class GameManager : MonoBehaviour
         timer.SetActive(true);
         pauseMenu.SetActive(false);
         winScreen.SetActive(false);
+        loseScreen.SetActive(false);
     }
 
     void Win()
@@ -168,5 +174,15 @@ public class GameManager : MonoBehaviour
     public void QuitToMainMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

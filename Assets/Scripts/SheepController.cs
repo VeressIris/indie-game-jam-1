@@ -17,13 +17,25 @@ public class SheepController : MonoBehaviour
     [HideInInspector] public bool playerInteracting = false;
     [HideInInspector] public bool arrived = false;
     [HideInInspector] public bool done = false; //turns true when the sheep is on its merry way to pick a spot in the pen
+    private bool[] wolfChaseChance = { true, false, false, true, false };
+    private Transform wolf;
 
     void Start()
     {
-        randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
-        destination = randomPos;
+        //randomly decide if the sheep should follow the wolf
+        if (wolfChaseChance[Random.Range(0, 5)])
+        {
+            wolf = GameObject.FindWithTag("Wolf").transform;
+            destination = wolf.position;
+            Debug.Log("following wolf", gameObject);
+        }
+        else
+        {
+            randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
+            destination = randomPos;
+        }
         
-        speed = Random.Range(0.8f, 1.628f);
+        speed = Random.Range(0.8f, 1.632f);
 
         StartCoroutine(InitSoundDelay());
     }
@@ -61,17 +73,17 @@ public class SheepController : MonoBehaviour
         }
     }
 
-    IEnumerator GetNewRandomPos()
-    {
-        yield return new WaitForSeconds(Random.Range(1f, 2.5f));
+    //IEnumerator GetNewRandomPos()
+    //{
+    //    yield return new WaitForSeconds(Random.Range(1f, 2.5f));
 
-        if (!movingTowardsFence && !done)
-        {
-            randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
-            destination = randomPos;
-            canMove = true;
-        }
-    }
+    //    if (!movingTowardsFence && !done)
+    //    {
+    //        randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
+    //        destination = randomPos;
+    //        canMove = true;
+    //    }
+    //}
 
     void RotateToFaceDestination()
     {
