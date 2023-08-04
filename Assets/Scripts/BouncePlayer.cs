@@ -14,9 +14,7 @@ public class BouncePlayer : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             playerController.canMove = false;
-
             playerRb.AddForce(transform.right * bounceForce, ForceMode2D.Impulse);
-            
             Cursor.lockState = CursorLockMode.Locked;
 
             StartCoroutine(DisableBounce());
@@ -26,9 +24,12 @@ public class BouncePlayer : MonoBehaviour
     IEnumerator DisableBounce()
     {        
         yield return new WaitForSeconds(bounceDuration);
+        
         playerRb.velocity = Vector3.zero;
 
+        //movement cooldown
         yield return new WaitForSeconds(bounceDuration + 0.15f);
+        
         playerController.canMove = true;
         Cursor.lockState = CursorLockMode.Confined;
     }
