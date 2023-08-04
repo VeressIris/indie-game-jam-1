@@ -28,7 +28,6 @@ public class SheepController : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
         }
 
-        //find new destination
         if (Vector2.Distance(transform.position, destination) <= 0.5f && canMove)
         {
             canMove = false;

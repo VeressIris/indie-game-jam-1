@@ -34,16 +34,10 @@ public class PlayerController : MonoBehaviour
     void FollowMousePos()
     {
         mousePos = GetMouseWorldPos();
-
-        //follow
         if (canMove) 
         { 
             transform.position = Vector2.Lerp(transform.position, mousePos, speed * Time.deltaTime);
         }
-        
-        //rotate
-        Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
-        transform.up = dir;
     }
 
     Vector2 GetMouseWorldPos()
@@ -59,7 +53,7 @@ public class PlayerController : MonoBehaviour
             for (int i = 0; i < collisions.Length; i++)
             {
                 sheep[i] = collisions[i].gameObject.GetComponent<SheepController>();
-                if (!sheep[i].movingTowardsFence) 
+                if (!sheep[i].movingTowardsFence)
                 { 
                     sheep[i].canMove = true;
                     sheep[i].destination = fenceTarget.position;
