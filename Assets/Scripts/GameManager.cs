@@ -10,11 +10,15 @@ public class GameManager : MonoBehaviour
 
     [Header("Level")]
     [SerializeField] private float levelDuration = 10f;
-    [SerializeField] private GameObject sheep;
+    [SerializeField] private GameObject sheepPrefab;
     [SerializeField] private int sheepNumber = 5;
     private List<Vector2> previousSpawns = new List<Vector2>();
     [HideInInspector] public int sheepInFence;
     [HideInInspector] public bool gameOver = false;
+    [HideInInspector] public bool timeOut = false;
+    private SheepController[] sheepControllers;
+    [SerializeField] private WolfController wolfController;
+    private bool controllersDisabled = false;
 
     [Header("Screen Limits")]
     [SerializeField] private Transform leftLimit;
@@ -42,14 +46,28 @@ public class GameManager : MonoBehaviour
         
         paused = false;
         SetUI();
+
+        sheepControllers = new SheepController[sheepNumber];
+        GetSheepControllers();
     }
 
     void Update()
     {
         if (sheepInFence == sheepNumber) Win();
-        else if (gameOver)
+        else if (gameOver && !timeOut)
         {
-            loseScreen.SetActive(true);
+            if (wolfController.arrived)
+            {
+                timer.SetActive(false);
+                loseScreen.SetActive(true);
+            }
+
+            //disable sheep controllers
+            if (!controllersDisabled)
+            {
+                for (int i = 0; i < sheepNumber; i++) sheepControllers[i].enabled = false;
+                controllersDisabled = true;
+            }
         }
         else
         {
@@ -61,10 +79,23 @@ public class GameManager : MonoBehaviour
             } 
             else
             {
+                timeOut = true;
                 timerText.text = "Time is out! The Wolf is coming!";
-                //do something
+
+                if (wolfController.arrived)
+                {
+                    timer.SetActive(false);
+                    loseScreen.SetActive(true);
+                }
+
+                //disable sheep controllers
+                if (!controllersDisabled)
+                {
+                    for (int i = 0; i < sheepNumber; i++) sheepControllers[i].enabled = false;
+                    controllersDisabled = true;
+                }
             }
-            
+
             if (Input.GetKeyDown(KeyCode.Escape)) PauseResume();
         }
     }
@@ -76,7 +107,7 @@ public class GameManager : MonoBehaviour
             Vector2 randomPos = GetRandomPos(1.25f, previousSpawns);
             previousSpawns.Add(randomPos);
             
-            Instantiate(sheep, randomPos, Quaternion.identity);
+            Instantiate(sheepPrefab, randomPos, Quaternion.identity);
         }
     }
 
@@ -183,6 +214,17 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex < SceneManager.sceneCount) SceneManager.LoadScene(currentSceneIndex + 1);
+        else QuitToMainMenu();
+    }
+
+    void GetSheepControllers()
+    {
+        GameObject[] sheep = GameObject.FindGameObjectsWithTag("Sheep");
+        for (int i = 0; i < sheepNumber; i++)
+        {
+            sheepControllers[i] = sheep[i].GetComponent<SheepController>();
+        }
     }
 }

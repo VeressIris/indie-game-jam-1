@@ -1637,11 +1637,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8c7b2f030bc264e89ec42e0c6cca43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelDuration: 100
-  sheep: {fileID: 7601139586453129529, guid: 963e28f14a8b28643bc992e251094bfa, type: 3}
+  levelDuration: 3
+  sheepPrefab: {fileID: 7601139586453129529, guid: 963e28f14a8b28643bc992e251094bfa, type: 3}
   sheepNumber: 5
   sheepInFence: 0
   gameOver: 0
+  timeOut: 0
+  wolfController: {fileID: 1484592398}
   leftLimit: {fileID: 1512993496}
   rightLimit: {fileID: 284810058}
   bottomLimit: {fileID: 165126418}
@@ -3559,6 +3561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53b47cf80ffe8334a9756382b40feb9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fence: {fileID: 1289267758}
+  speed: 3.2
+  arrived: 0
 --- !u!1 &1512993495
 GameObject:
   m_ObjectHideFlags: 0
