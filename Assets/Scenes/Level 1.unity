@@ -1650,6 +1650,7 @@ MonoBehaviour:
   topLimit: {fileID: 624681692}
   fenceController: {fileID: 1289267760}
   wolfTransform: {fileID: 1484592396}
+  fenceTransform: {fileID: 1289267758}
   timerText: {fileID: 716294221}
   timer: {fileID: 716294219}
   pauseMenu: {fileID: 2116766998}

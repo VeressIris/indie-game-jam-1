@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform topLimit;
     [SerializeField] private FenceAreaController fenceController;
     [SerializeField] private Transform wolfTransform;
+    [SerializeField] private Transform fenceTransform;
 
     [Header("UI")]
     [SerializeField] private TMP_Text timerText;

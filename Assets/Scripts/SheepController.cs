@@ -31,7 +31,6 @@ public class SheepController : MonoBehaviour
         {
             wolf = GameObject.FindWithTag("Wolf").transform;
             destination = wolf.position;
-            Debug.Log("following wolf", gameObject);
         }
         else
         {
@@ -39,7 +38,7 @@ public class SheepController : MonoBehaviour
             destination = randomPos;
         }
 
-        speed = Random.Range(0.85f, 1.7f);
+        speed = Random.Range(0.875f, 1.7f);
 
         StartCoroutine(InitSoundDelay());
     }
@@ -55,18 +54,20 @@ public class SheepController : MonoBehaviour
         //movement
         if (canMove)
         {
+            if (isUnderPlayerInteraction) StopCoroutine(GetNewRandomPos());
+            
             transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
             RotateToFaceDestination();
         }
         //arrived at destination
         if (Vector2.Distance(transform.position, destination) <= 0.2f && canMove)
         {
-            if (!isUnderPlayerInteraction) StartCoroutine(GetNewRandomPos());
-            else if (isInFence)
+            if (isInFence)
             {
                 canMove = false;
                 arrivedAtFinalPos = true;
             }
+            else if (!isUnderPlayerInteraction) StartCoroutine(GetNewRandomPos());
             else if (isUnderPlayerInteraction)
             {
                 StopCoroutine(GetNewRandomPos());
@@ -77,9 +78,12 @@ public class SheepController : MonoBehaviour
 
     IEnumerator GetNewRandomPos()
     {
-        yield return new WaitForSeconds(Random.Range(0.8f, 2.25f));
-
+        Debug.Log("waiting");
         randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
+        
+        yield return new WaitForSeconds(Random.Range(0.85f, 2f));
+        
+        Debug.Log("done waiting");
         destination = randomPos;
         canMove = true;
     }
