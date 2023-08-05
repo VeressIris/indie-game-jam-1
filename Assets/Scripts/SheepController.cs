@@ -9,19 +9,20 @@ public class SheepController : MonoBehaviour
     [Header("Movement:")]
     private Vector2 randomPos;
     private float speed;
-    [HideInInspector] public bool canMove = true;
-    [HideInInspector] public Vector2 destination;
-    [HideInInspector] public bool movingTowardsFence = false;
+    public Vector2 destination;
+    [HideInInspector] public bool isUnderPlayerInteraction = false;
+    private bool canMove = true;
+    [HideInInspector] public bool isInFence = false;
+    [HideInInspector] public bool arrivedAtFinalPos = false;
+    [HideInInspector] public bool movingTowardsFinalPos = false;
+
+    private bool[] wolfChaseChance = { true, false, false, true, false };
+    private Transform wolf;
+
+    [Header("Sound")]
     [SerializeField] private AudioSource audioSrc;
     [SerializeField] private AudioClip[] clips;
     private bool canPlaySound = false;
-    [HideInInspector] public bool playerInteracting = false;
-    [HideInInspector] public bool arrived = false;
-    [HideInInspector] public bool done = false; //turns true when the sheep is on its merry way to pick a spot in the pen
-
-    [Header("Wolf chase:")]
-    private bool[] wolfChaseChance = { true, false, false, true, false };
-    private Transform wolf;
 
     void Start()
     {
@@ -37,56 +38,51 @@ public class SheepController : MonoBehaviour
             randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
             destination = randomPos;
         }
-        
-        speed = Random.Range(0.8f, 1.632f);
+
+        speed = Random.Range(0.85f, 1.7f);
 
         StartCoroutine(InitSoundDelay());
     }
 
     void Update()
     {
-        if (canMove && !arrived)
-        { 
-            RotateToFaceDestination();
-            transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
-        }
-
+        //sound
         if (!audioSrc.isPlaying && canPlaySound)
         {
             StartCoroutine(PlaySound());
         }
 
+        //movement
+        if (canMove)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
+            RotateToFaceDestination();
+        }
+        //arrived at destination
         if (Vector2.Distance(transform.position, destination) <= 0.2f && canMove)
         {
-            canMove = false;
-
-            if (!movingTowardsFence && !done)
+            if (!isUnderPlayerInteraction) StartCoroutine(GetNewRandomPos());
+            else if (isInFence)
             {
-                randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
-                destination = randomPos;
-                canMove = true;
-                //StartCoroutine(GetNewRandomPos());
+                canMove = false;
+                arrivedAtFinalPos = true;
             }
-            else if (done && !arrived)
-            { 
-                GameManager.Instance.sheepInFence++;
-                arrived = true;
-                Debug.Log(GameManager.Instance.sheepInFence);
-            } 
+            else if (isUnderPlayerInteraction)
+            {
+                StopCoroutine(GetNewRandomPos());
+                canMove = true;
+            }
         }
     }
 
-    //IEnumerator GetNewRandomPos()
-    //{
-    //    yield return new WaitForSeconds(Random.Range(1f, 2.5f));
+    IEnumerator GetNewRandomPos()
+    {
+        yield return new WaitForSeconds(Random.Range(0.8f, 2.25f));
 
-    //    if (!movingTowardsFence && !done)
-    //    {
-    //        randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
-    //        destination = randomPos;
-    //        canMove = true;
-    //    }
-    //}
+        randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
+        destination = randomPos;
+        canMove = true;
+    }
 
     void RotateToFaceDestination()
     {
@@ -102,7 +98,7 @@ public class SheepController : MonoBehaviour
         canPlaySound = false;
 
         yield return new WaitForSeconds(Random.Range(4f, 6f));
-        
+
         canPlaySound = true;
     }
 
@@ -113,7 +109,7 @@ public class SheepController : MonoBehaviour
         audioSrc.clip = clips[Random.Range(0, 2)];
         audioSrc.volume = Random.Range(0.15f, 0.42f);
         audioSrc.Play();
-        
+
         canPlaySound = true;
     }
 }

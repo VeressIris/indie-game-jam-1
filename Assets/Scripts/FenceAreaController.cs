@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class FenceAreaController : MonoBehaviour
@@ -9,28 +10,19 @@ public class FenceAreaController : MonoBehaviour
     [SerializeField] private BoxCollider2D fenceColl;
     [SerializeField] private GameManager gameManager;
     private List<Vector2> previousPos = new List<Vector2>();
+    private Collider2D[] collisions;
+    private SheepController[] sheep;
+    [SerializeField] private LayerMask sheepLayer;
+    [SerializeField] private Vector3 overlapOffset;
 
     void Start()
     {
         GetColliderLimits(fenceColl);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Update()
     {
-        if (collision.CompareTag("Sheep"))
-        {
-            GameObject sheep = collision.gameObject;
-            SheepController sheepController = sheep.GetComponent<SheepController>();
-            
-            if (sheepController.movingTowardsFence)
-            {
-                sheepController.done = true; //it's on its merry way to find a place in the pen
-                Vector2 fenceDestination = GetRandomFencePos(1.2f);
-                previousPos.Add(fenceDestination);
-                Debug.Log(fenceDestination);
-                sheepController.destination = fenceDestination;
-            }
-        }
+        MoveSheepToPositions();
     }
 
     void GetColliderLimits(BoxCollider2D col)
@@ -71,5 +63,37 @@ public class FenceAreaController : MonoBehaviour
         }
 
         return true;
+    }
+
+    bool SheepInFence()
+    {
+        collisions = Physics2D.OverlapAreaAll(topLeftCorner, bottomRightCorner, sheepLayer);
+        return collisions.Length > 0;
+    }
+
+    void MoveSheepToPositions()
+    {
+        if (SheepInFence())
+        { 
+            sheep = new SheepController[collisions.Length];
+            for (int i = 0; i < collisions.Length; i++)
+            {
+                sheep[i] = collisions[i].gameObject.GetComponent<SheepController>();
+                sheep[i].isInFence = true;
+
+                if (!sheep[i].arrivedAtFinalPos && !sheep[i].movingTowardsFinalPos)
+                {
+                    sheep[i].destination = GetRandomFencePos(1.2f);
+                    sheep[i].movingTowardsFinalPos = true;
+                }
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Color customColor = new Color(0, 1, 1, 0.25f);
+        Gizmos.color = customColor;
+        Gizmos.DrawCube(transform.position + overlapOffset, gameObject.GetComponent<BoxCollider2D>().size);
     }
 }

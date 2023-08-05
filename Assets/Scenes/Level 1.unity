@@ -1637,7 +1637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8c7b2f030bc264e89ec42e0c6cca43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelDuration: 3
+  levelDuration: 100
   sheepPrefab: {fileID: 7601139586453129529, guid: 963e28f14a8b28643bc992e251094bfa, type: 3}
   sheepNumber: 5
   sheepInFence: 0
@@ -1649,6 +1649,7 @@ MonoBehaviour:
   bottomLimit: {fileID: 165126418}
   topLimit: {fileID: 624681692}
   fenceController: {fileID: 1289267760}
+  wolfTransform: {fileID: 1484592396}
   timerText: {fileID: 716294221}
   timer: {fileID: 716294219}
   pauseMenu: {fileID: 2116766998}
@@ -2849,6 +2850,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fenceColl: {fileID: 1289267759}
   gameManager: {fileID: 689907306}
+  sheepLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  overlapOffset: {x: -0.05, y: -0.14, z: 0}
 --- !u!1 &1302675434
 GameObject:
   m_ObjectHideFlags: 0
@@ -3533,7 +3538,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
