@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,18 +10,30 @@ public class GameManager : MonoBehaviour
 
     [Header("Level")]
     [SerializeField] private float levelDuration = 10f;
-    [SerializeField] private GameObject sheep;
+    [SerializeField] private GameObject sheepPrefab;
     [SerializeField] private int sheepNumber = 5;
+    private List<Vector2> previousSpawns = new List<Vector2>();
+    [HideInInspector] public int sheepInFence;
+    [HideInInspector] public bool gameOver = false;
+    [HideInInspector] public bool timeOut = false;
+    private SheepController[] sheepControllers;
+    [SerializeField] private WolfController wolfController;
+    private bool controllersDisabled = false;
 
     [Header("Screen Limits")]
     [SerializeField] private Transform leftLimit;
     [SerializeField] private Transform rightLimit;
     [SerializeField] private Transform bottomLimit;
     [SerializeField] private Transform topLimit;
+    [SerializeField] private FenceAreaController fenceController;
 
-    private List<Vector2> previousSpawns = new List<Vector2>();
     [Header("UI")]
     [SerializeField] private TMP_Text timerText;
+    [SerializeField] private GameObject timer;
+    [SerializeField] private GameObject pauseMenu;
+    private bool paused = false;
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
 
     void Awake()
     {
@@ -30,14 +43,61 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SpawnSheep();
+        
+        paused = false;
+        SetUI();
+
+        sheepControllers = new SheepController[sheepNumber];
+        GetSheepControllers();
     }
 
     void Update()
     {
-        //timer
-        if (levelDuration > 0) levelDuration -= Time.deltaTime;
-        else Debug.Log("The wolf is coming");
-        UpdateTimerUI();
+        if (sheepInFence == sheepNumber) Win();
+        else if (gameOver && !timeOut)
+        {
+            if (wolfController.arrived)
+            {
+                timer.SetActive(false);
+                loseScreen.SetActive(true);
+            }
+
+            //disable sheep controllers
+            if (!controllersDisabled)
+            {
+                for (int i = 0; i < sheepNumber; i++) sheepControllers[i].enabled = false;
+                controllersDisabled = true;
+            }
+        }
+        else
+        {
+            //timer
+            if (levelDuration > 0)
+            {
+                levelDuration -= Time.deltaTime;
+                UpdateTimerUI();
+            } 
+            else
+            {
+                timeOut = true;
+                timerText.text = "Time is out! The Wolf is coming!";
+
+                if (wolfController.arrived)
+                {
+                    timer.SetActive(false);
+                    loseScreen.SetActive(true);
+                }
+
+                //disable sheep controllers
+                if (!controllersDisabled)
+                {
+                    for (int i = 0; i < sheepNumber; i++) sheepControllers[i].enabled = false;
+                    controllersDisabled = true;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape)) PauseResume();
+        }
     }
 
     void SpawnSheep()
@@ -47,7 +107,7 @@ public class GameManager : MonoBehaviour
             Vector2 randomPos = GetRandomPos(1.25f, previousSpawns);
             previousSpawns.Add(randomPos);
             
-            Instantiate(sheep, randomPos, Quaternion.identity);
+            Instantiate(sheepPrefab, randomPos, Quaternion.identity);
         }
     }
 
@@ -110,22 +170,61 @@ public class GameManager : MonoBehaviour
         return vec;
     }
 
-    //random spawn point in fence limits
-    public Vector2 GetRandomPos(float minDistance, Vector2 bottomRightCorner, Vector2 topLeftCorner, List<Vector2> previousPos)
+    public void PauseResume()
     {
-        float xPos = Random.Range(topLeftCorner.x, bottomRightCorner.x);
-        float yPos = Random.Range(bottomRightCorner.y, topLeftCorner.y);
-
-        Vector2 vec = new Vector2(xPos, yPos);
-
-        while (!ValidSpawn(vec, minDistance, previousPos))
+        if (!paused)
         {
-            xPos = Random.Range(topLeftCorner.x, bottomRightCorner.x);
-            yPos = Random.Range(bottomRightCorner.y, topLeftCorner.y);
-
-            vec = new Vector2(xPos, yPos);
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+            timer.SetActive(false);
+        }
+        else
+        {
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+            timer.SetActive(true);
         }
 
-        return vec;
+        paused = !paused;
+    }
+
+    void SetUI()
+    {
+        timer.SetActive(true);
+        pauseMenu.SetActive(false);
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
+    }
+
+    void Win()
+    {
+        timer.SetActive(false);
+        winScreen.SetActive(true);
+    }
+
+    public void QuitToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex < SceneManager.sceneCount) SceneManager.LoadScene(currentSceneIndex + 1);
+        else QuitToMainMenu();
+    }
+
+    void GetSheepControllers()
+    {
+        GameObject[] sheep = GameObject.FindGameObjectsWithTag("Sheep");
+        for (int i = 0; i < sheepNumber; i++)
+        {
+            sheepControllers[i] = sheep[i].GetComponent<SheepController>();
+        }
     }
 }

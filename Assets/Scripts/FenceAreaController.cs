@@ -22,11 +22,12 @@ public class FenceAreaController : MonoBehaviour
             GameObject sheep = collision.gameObject;
             SheepController sheepController = sheep.GetComponent<SheepController>();
             
-            if (!sheepController.movingTowardsFence)
+            if (sheepController.movingTowardsFence)
             {
-                sheepController.movingTowardsFence = true;
+                sheepController.done = true; //it's on its merry way to find a place in the pen
                 Vector2 fenceDestination = GetRandomFencePos(1.2f);
                 previousPos.Add(fenceDestination);
+                Debug.Log(fenceDestination);
                 sheepController.destination = fenceDestination;
             }
         }

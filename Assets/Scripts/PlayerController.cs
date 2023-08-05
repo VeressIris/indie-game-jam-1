@@ -11,12 +11,15 @@ public class PlayerController : MonoBehaviour
 
     [Header("Sheep detection:")]
     [SerializeField] private BoxCollider2D col;
-    [SerializeField] private float detectionRadius = 8f;
+    public float detectionRadius = 8f;
     [SerializeField] private LayerMask sheepLayer;
     private Collider2D[] collisions;
     private SheepController[] sheep;
     [SerializeField] private Transform fenceTarget;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private SpriteRenderer detectionRadiusSR;
+    private Color idleDetColor = new Color(1, 0, 0, 0.14f);
+    private Color detectedColor = new Color(0, 1, 0, 0.08f);
 
     void Start()
     {
@@ -49,19 +52,26 @@ public class PlayerController : MonoBehaviour
     {
         if (DetectSheep())
         {
+            detectionRadiusSR.color = detectedColor;
+
             sheep = new SheepController[collisions.Length];
             for (int i = 0; i < collisions.Length; i++)
             {
                 sheep[i] = collisions[i].gameObject.GetComponent<SheepController>();
-                if (!sheep[i].movingTowardsFence)
+                sheep[i].playerInteracting = true;
+
+                if (!sheep[i].movingTowardsFence && !sheep[i].done && !sheep[i].arrived)
                 { 
                     sheep[i].canMove = true;
+                    sheep[i].movingTowardsFence = true;
                     sheep[i].destination = fenceTarget.position;
                 } 
             }
         }
         else
         {
+            detectionRadiusSR.color = idleDetColor;
+
             if (sheep != null && sheep.Length > 0)
             {
                 for (int i = 0; i < sheep.Length; i++)
