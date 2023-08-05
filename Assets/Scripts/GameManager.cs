@@ -20,12 +20,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WolfController wolfController;
     private bool controllersDisabled = false;
 
-    [Header("Screen Limits")]
+    [Header("Limits")]
     [SerializeField] private Transform leftLimit;
     [SerializeField] private Transform rightLimit;
     [SerializeField] private Transform bottomLimit;
     [SerializeField] private Transform topLimit;
     [SerializeField] private FenceAreaController fenceController;
+    [SerializeField] private Transform wolfTransform;
 
     [Header("UI")]
     [SerializeField] private TMP_Text timerText;
@@ -62,12 +63,7 @@ public class GameManager : MonoBehaviour
                 loseScreen.SetActive(true);
             }
 
-            //disable sheep controllers
-            if (!controllersDisabled)
-            {
-                for (int i = 0; i < sheepNumber; i++) sheepControllers[i].enabled = false;
-                controllersDisabled = true;
-            }
+            DisableSheepControllers();
         }
         else
         {
@@ -88,12 +84,7 @@ public class GameManager : MonoBehaviour
                     loseScreen.SetActive(true);
                 }
 
-                //disable sheep controllers
-                if (!controllersDisabled)
-                {
-                    for (int i = 0; i < sheepNumber; i++) sheepControllers[i].enabled = false;
-                    controllersDisabled = true;
-                }
+                DisableSheepControllers();
             }
 
             if (Input.GetKeyDown(KeyCode.Escape)) PauseResume();
@@ -130,11 +121,13 @@ public class GameManager : MonoBehaviour
         return vec;
     }
 
+    //sheep can't spawn if they're too close together or if they're too close to the wolf
     bool ValidSpawn(Vector2 vec, float minDistance, List<Vector2> previousPoints)
     {
         for (int i = 0; i < previousPoints.Count; i++)
         {
-            if (Vector2.Distance(vec, previousPoints[i]) < minDistance)
+            if (Vector2.Distance(vec, previousPoints[i]) < minDistance ||
+                Vector2.Distance(wolfTransform.position, previousPoints[i]) <= 2f)
             {
                 return false;
             }
@@ -151,7 +144,7 @@ public class GameManager : MonoBehaviour
         timerText.text = "Time remaining: " + string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
-    //everything else
+    //general GetRandomPos function
     public Vector2 GetRandomPos(float minDistance, Transform transform)
     {
         float xPos = Random.Range(leftLimit.position.x, rightLimit.position.x);
@@ -225,6 +218,15 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < sheepNumber; i++)
         {
             sheepControllers[i] = sheep[i].GetComponent<SheepController>();
+        }
+    }
+
+    void DisableSheepControllers()
+    {
+        if (!controllersDisabled)
+        {
+            for (int i = 0; i < sheepNumber; i++) sheepControllers[i].enabled = false;
+            controllersDisabled = true;
         }
     }
 }

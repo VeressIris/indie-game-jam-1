@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour
     void FollowMousePos()
     {
         mousePos = GetMouseWorldPos();
-        if (canMove) 
-        { 
+        if (canMove)
+        {
             transform.position = Vector2.Lerp(transform.position, mousePos, speed * Time.deltaTime);
         }
     }
@@ -54,36 +54,39 @@ public class PlayerController : MonoBehaviour
         {
             detectionRadiusSR.color = detectedColor;
 
+            //move towards fence
             sheep = new SheepController[collisions.Length];
             for (int i = 0; i < collisions.Length; i++)
             {
                 sheep[i] = collisions[i].gameObject.GetComponent<SheepController>();
-                sheep[i].playerInteracting = true;
-
-                if (!sheep[i].movingTowardsFence && !sheep[i].done && !sheep[i].arrived)
-                { 
-                    sheep[i].canMove = true;
-                    sheep[i].movingTowardsFence = true;
+                
+                if (!sheep[i].isInFence)
+                {
+                    sheep[i].isUnderPlayerInteraction = true;
                     sheep[i].destination = fenceTarget.position;
-                } 
+                }
             }
         }
         else
         {
             detectionRadiusSR.color = idleDetColor;
 
+            //move randomly again
             if (sheep != null && sheep.Length > 0)
             {
                 for (int i = 0; i < sheep.Length; i++)
                 {
-                    sheep[i].movingTowardsFence = false;
-                    sheep[i].destination = gameManager.GetRandomPos(sheep[i].minSheepDistance, sheep[i].gameObject.transform);
+                    if (!sheep[i].isInFence)
+                    {
+                        sheep[i].isUnderPlayerInteraction = false;
+                        sheep[i].destination = GameManager.Instance.GetRandomPos(sheep[i].minSheepDistance, sheep[i].transform);
+                    }
                 }
             }
             sheep = new SheepController[0]; //reset collision array
         }
     }
-     
+
     bool DetectSheep()
     {
         collisions = Physics2D.OverlapCircleAll(transform.position, detectionRadius, sheepLayer);
@@ -94,9 +97,9 @@ public class PlayerController : MonoBehaviour
     {
         Color idleColor = new Color(0, 1, 1, 0.25f);
         Color detectionColor = new Color(1, 0, 0, 0.25f);
-        
+
         Gizmos.color = DetectSheep() ? detectionColor : idleColor;
-        
+
         Gizmos.DrawSphere(transform.position, detectionRadius);
     }
 }
