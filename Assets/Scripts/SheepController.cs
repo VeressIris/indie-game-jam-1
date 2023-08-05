@@ -6,6 +6,7 @@ public class SheepController : MonoBehaviour
 {
     public float minSheepDistance = 3.25f;
 
+    [Header("Movement:")]
     private Vector2 randomPos;
     private float speed;
     [HideInInspector] public bool canMove = true;
@@ -17,6 +18,8 @@ public class SheepController : MonoBehaviour
     [HideInInspector] public bool playerInteracting = false;
     [HideInInspector] public bool arrived = false;
     [HideInInspector] public bool done = false; //turns true when the sheep is on its merry way to pick a spot in the pen
+
+    [Header("Wolf chase:")]
     private bool[] wolfChaseChance = { true, false, false, true, false };
     private Transform wolf;
 
