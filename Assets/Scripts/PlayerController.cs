@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform fenceTarget;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private SpriteRenderer detectionRadiusSR;
-    private Color idleDetColor = new Color(1, 0, 0, 0.14f);
+    private Color idleDetColor = new Color(1, 0, 0, 0.18f);
     private Color detectedColor = new Color(0, 1, 0, 0.08f);
 
     void Start()
