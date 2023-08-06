@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WolfController : MonoBehaviour
 {
-    [SerializeField] private Transform fence;
     private bool canMove = false;
     [SerializeField] private float speed = 3.5f;
     private GameObject[] sheep;
@@ -66,7 +65,7 @@ public class WolfController : MonoBehaviour
 
     IEnumerator WalkDelay()
     {
-        destination = fence.position;
+        destination = GetClosestSheep();
 
         yield return new WaitForSeconds(1.4f);
 
@@ -81,7 +80,7 @@ public class WolfController : MonoBehaviour
         for (int i = 0;i < sheep.Length; i++)
         {
             float dist = Vector2.Distance(transform.position, sheep[i].transform.position);
-            if (dist < closestDist)
+            if (dist < closestDist && !sheep[i].GetComponent<SheepController>().outOfBounds)
             {
                 closestDist = dist;
                 closestSheep = sheep[i].transform.position;

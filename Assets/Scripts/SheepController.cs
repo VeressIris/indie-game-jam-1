@@ -18,6 +18,7 @@ public class SheepController : MonoBehaviour
 
     private bool[] wolfChaseChance = { true, false, false, true, false };
     private Transform wolf;
+    [HideInInspector] public bool outOfBounds = false;
 
     [Header("Sound")]
     [SerializeField] private AudioSource audioSrc;

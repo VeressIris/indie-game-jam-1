@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [Header("Level")]
     public float levelDuration = 10f;
     [SerializeField] private GameObject sheepPrefab;
-    [SerializeField] private int sheepNumber = 5;
+    public int sheepNumber = 5;
     private List<Vector2> previousSpawns = new List<Vector2>();
     [HideInInspector] public int sheepInFence;
     [HideInInspector] public bool gameOver = false;
