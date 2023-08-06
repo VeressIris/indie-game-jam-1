@@ -5,7 +5,7 @@ using UnityEngine;
 public class RotateBatToMousePos : MonoBehaviour
 {
     [SerializeField] private PlayerController playerController;
-
+    
     void Update()
     {
         RotateWithMouse();
@@ -13,8 +13,11 @@ public class RotateBatToMousePos : MonoBehaviour
 
     void RotateWithMouse()
     {
-        Vector2 mousePos = playerController.mousePos;
-        Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
-        transform.up = dir;
+        if (!GameManager.Instance.paused)
+        {
+            Vector2 mousePos = playerController.mousePos;
+            Vector2 dir = new Vector2(mousePos.x - transform.position.x, mousePos.y - transform.position.y);
+            transform.up = dir;
+        }
     }
 }

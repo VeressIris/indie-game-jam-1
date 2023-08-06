@@ -152,10 +152,10 @@ TextureImporter:
       name: licos run_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1706.6666
-        height: 1440
+        x: 204
+        y: 316
+        width: 915
+        height: 683
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,10 +173,10 @@ TextureImporter:
       name: licos run_1
       rect:
         serializedVersion: 2
-        x: 1706
-        y: 0
-        width: 1706.6666
-        height: 1440
+        x: 1459
+        y: 316
+        width: 930
+        height: 658
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,10 +194,10 @@ TextureImporter:
       name: licos run_2
       rect:
         serializedVersion: 2
-        x: 3412
-        y: 0
-        width: 1706.6666
-        height: 1440
+        x: 2774
+        y: 319
+        width: 900
+        height: 652
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

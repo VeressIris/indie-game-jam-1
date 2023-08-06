@@ -15,6 +15,7 @@ public class WolfController : MonoBehaviour
     [SerializeField] private Transform initSpawnPoint;
     private float delayToMove;
     private bool isAtSpawn = false;
+    [SerializeField] private Animator animator;
 
     void Start()
     {
@@ -26,6 +27,8 @@ public class WolfController : MonoBehaviour
 
     void Update()
     {
+        Animate();
+
         if (canMove && !isAtSpawn) transform.position = Vector2.MoveTowards(transform.position, initSpawnPoint.position, speed * Time.deltaTime);
         else if (canMove && !arrived) transform.position = Vector2.MoveTowards(transform.position, destination, speed * Time.deltaTime);
         else if (!canMove && GameManager.Instance.gameOver)
@@ -108,5 +111,11 @@ public class WolfController : MonoBehaviour
     {
         yield return new WaitForSeconds(delayToMove);
         canMove = true;
+    }
+
+    void Animate()
+    {
+        if (canMove) animator.Play("Run");
+        else animator.Play("Idle");
     }
 }

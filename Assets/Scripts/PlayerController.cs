@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float speed = 5f;
     [HideInInspector] public bool canMove = true;
     [HideInInspector] public Vector2 mousePos;
+    [SerializeField] private Animator animator;
 
     [Header("Sheep detection:")]
     [SerializeField] private BoxCollider2D col;
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
         FollowMousePos();
 
         HerdSheep();
+
+        Animate();
     }
 
     void FollowMousePos()
@@ -117,5 +120,11 @@ public class PlayerController : MonoBehaviour
             audioSrc.clip = footsteps[Random.Range(0, footsteps.Length)];
             audioSrc.Play();
         }
+    }
+
+    void Animate()
+    {
+        if (canMove) animator.Play("Walk");
+        else animator.Play("Idle");
     }
 }

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private WolfController wolfController;
     private bool controllersDisabled = false;
     [SerializeField] private PlayerController playerController;
+    [HideInInspector] public bool lostSheep = false;
 
     [Header("Limits")]
     [SerializeField] private Transform leftLimit;
@@ -34,9 +35,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private GameObject timer;
     [SerializeField] private GameObject pauseMenu;
-    private bool paused = false;
+    [HideInInspector] public bool paused = false;
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
+    [SerializeField] private TMP_Text winText;
+    [SerializeField] private GameObject optionsMenu;
 
     [Header("SFX")]
     [SerializeField] private AudioSource audioSrc;
@@ -184,20 +187,23 @@ public class GameManager : MonoBehaviour
 
     public void PauseResume()
     {
-        if (!paused)
-        {
-            Time.timeScale = 0;
-            pauseMenu.SetActive(true);
-            timer.SetActive(false);
-        }
-        else
-        {
-            Time.timeScale = 1;
-            pauseMenu.SetActive(false);
-            timer.SetActive(true);
-        }
+        if (!gameOver || !timeOut)
+        { 
+            if (!paused)
+            {
+                Time.timeScale = 0;
+                pauseMenu.SetActive(true);
+                timer.SetActive(false);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                pauseMenu.SetActive(false);
+                timer.SetActive(true);
+            }
 
-        paused = !paused;
+            paused = !paused;
+        }
     }
 
     void SetUI()
@@ -206,6 +212,7 @@ public class GameManager : MonoBehaviour
         pauseMenu.SetActive(false);
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
+        optionsMenu.SetActive(false);
     }
 
     void Win()
@@ -221,6 +228,8 @@ public class GameManager : MonoBehaviour
         //visuals
         timer.SetActive(false);
         winScreen.SetActive(true);
+
+        if (lostSheep) winText.text = "You Win!\nYou lost some sheep along the way though.";
 
         playerController.canMove = false;
     }
@@ -276,6 +285,20 @@ public class GameManager : MonoBehaviour
         { 
             audioSrc.Play();
             loseSFXPlayed = true;
+        }
+    }
+
+    public void OpenOptionsMenu()
+    {
+        if (optionsMenu.activeInHierarchy)
+        {
+            pauseMenu.SetActive(true);
+            optionsMenu.SetActive(false);
+        }
+        else
+        {    
+            pauseMenu.SetActive(false);
+            optionsMenu.SetActive(true);
         }
     }
 }

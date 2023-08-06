@@ -101,16 +101,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minSheepDistance: 3.25
-  canMove: 1
   destination: {x: 0, y: 0}
-  movingTowardsFence: 0
+  isUnderPlayerInteraction: 0
+  isInFence: 0
+  arrivedAtFinalPos: 0
+  movingTowardsFinalPos: 0
   audioSrc: {fileID: 5705076080830118035}
   clips:
   - {fileID: 8300000, guid: d8d474da5b865234fb97f0b0a14ae92e, type: 3}
   - {fileID: 8300000, guid: 4c2eba93d271b4f4bb704d1feefbef5d, type: 3}
   - {fileID: 8300000, guid: 48adddadd6cc3794f92994b6e0d2f23f, type: 3}
-  playerInteracted: 0
-  arrived: 0
 --- !u!61 &-1268569275575479651
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -192,7 +192,7 @@ AudioSource:
   m_GameObject: {fileID: 7601139586453129529}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: afab3021290184c4e8b794b147d437f2, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
