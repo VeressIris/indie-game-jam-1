@@ -318,3 +318,212 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 277546.208038 seconds.
+  path: Assets/CasualGameBGM05/BGM_01.wav
+  artifactKey: Guid(475f4837af487ce4a9e68bb227455e4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameBGM05/BGM_01.wav using Guid(475f4837af487ce4a9e68bb227455e4c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e0836a75887fb06884cdaa36d3a6c43c') in 0.074858 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 2.542141 seconds.
+  path: Assets/CasualGameBGM05/BGM_02.wav
+  artifactKey: Guid(90eae78e8ce85a849b5b0ca11b2de641) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameBGM05/BGM_02.wav using Guid(90eae78e8ce85a849b5b0ca11b2de641) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f658fd1ae80f19580033b4a452255fa') in 0.010613 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 2.343023 seconds.
+  path: Assets/CasualGameBGM05/BGM_03.wav
+  artifactKey: Guid(47f45ef7b5767674393cc401fc325705) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameBGM05/BGM_03.wav using Guid(47f45ef7b5767674393cc401fc325705) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c401f32590611303aa906c77bc5ce023') in 0.011250 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 2.364266 seconds.
+  path: Assets/CasualGameBGM05/BGM_04.wav
+  artifactKey: Guid(1532c7e67c2d60c4c8780da14b7e8fcf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameBGM05/BGM_04.wav using Guid(1532c7e67c2d60c4c8780da14b7e8fcf) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9b83fcbde8d3281e040d46c5f82bc982') in 0.011125 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 9.158024 seconds.
+  path: Assets/Scenes/Level 1.unity
+  artifactKey: Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Level 1.unity using Guid(2cda990e2423bbf4892e6590ba056729) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a1105773aadf085a9b8dab45e6ad6d44') in 0.000498 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Unity Projects\Indie Game Jam\indie-game-jam-1\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Unity Projects\Indie Game Jam\indie-game-jam-1\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  0.518 seconds
+Refreshing native plugins compatible for Editor in 4.05 ms, found 4 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.710 seconds
+Domain Reload Profiling: 1225ms
+	BeginReloadAssembly (119ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (9ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (33ms)
+	RebuildCommonClasses (22ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (23ms)
+	LoadAllAssembliesAndSetupDomain (343ms)
+		LoadAssemblies (198ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (189ms)
+			TypeCache.Refresh (186ms)
+				TypeCache.ScanAssembly (178ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (3ms)
+	FinalizeReload (710ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (280ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (28ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (55ms)
+			ProcessInitializeOnLoadAttributes (164ms)
+			ProcessInitializeOnLoadMethodAttributes (25ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Refreshing native plugins compatible for Editor in 6.36 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3996 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 35 unused Assets / (35.1 KB). Loaded Objects now: 4512.
+Memory consumption went from 142.8 MB to 142.8 MB.
+Total: 3.501000 ms (FindLiveObjects: 0.258700 ms CreateObjectMapping: 0.181000 ms MarkObjects: 3.010500 ms  DeleteObjects: 0.049900 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory doesn't match image C:\Unity Projects\Indie Game Jam\indie-game-jam-1\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll
+Symbol file LoadedFromMemory doesn't match image C:\Unity Projects\Indie Game Jam\indie-game-jam-1\Library\PackageCache\com.unity.visualscripting@1.8.0\Editor\VisualScripting.Core\Dependencies\DotNetZip\Unity.VisualScripting.IonicZip.dll
+- Loaded All Assemblies, in  0.514 seconds
+Refreshing native plugins compatible for Editor in 5.99 ms, found 4 plugins.
+Native extension for WindowsStandalone target not found
+Native extension for iOS target not found
+Native extension for Android target not found
+Native extension for WebGL target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.702 seconds
+Domain Reload Profiling: 1214ms
+	BeginReloadAssembly (118ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (9ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (31ms)
+	RebuildCommonClasses (22ms)
+	RebuildNativeTypeToScriptingClass (8ms)
+	initialDomainReloadingComplete (23ms)
+	LoadAllAssembliesAndSetupDomain (339ms)
+		LoadAssemblies (199ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (186ms)
+			TypeCache.Refresh (182ms)
+				TypeCache.ScanAssembly (174ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (4ms)
+	FinalizeReload (702ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (279ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (25ms)
+			SetLoadedEditorAssemblies (3ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (60ms)
+			ProcessInitializeOnLoadAttributes (162ms)
+			ProcessInitializeOnLoadMethodAttributes (23ms)
+			AfterProcessingInitializeOnLoad (5ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (10ms)
+Refreshing native plugins compatible for Editor in 6.98 ms, found 4 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 3997 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 35 unused Assets / (35.0 KB). Loaded Objects now: 4516.
+Memory consumption went from 143.1 MB to 143.1 MB.
+Total: 2.836900 ms (FindLiveObjects: 0.239100 ms CreateObjectMapping: 0.157000 ms MarkObjects: 2.392700 ms  DeleteObjects: 0.047400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 756ad292c208cfabdd7b50bc23989ffe -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 557.585493 seconds.
+  path: Assets/Sounds/Free_Game_Sound_FX/GameBurp FREE Game Sound FX Pack - WAV/ALARM Alert Ringer Ascend 01.wav
+  artifactKey: Guid(e55d7636fa477644eae53e0e351a301f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sounds/Free_Game_Sound_FX/GameBurp FREE Game Sound FX Pack - WAV/ALARM Alert Ringer Ascend 01.wav using Guid(e55d7636fa477644eae53e0e351a301f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94c2c83b5200d40b77852c101673a711') in 0.056355 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/Sounds/Free_Game_Sound_FX/GameBurp FREE Game Sound FX Pack - WAV/BONG Bell Timer Hit Deep 01.wav
+  artifactKey: Guid(fb246aa464413034e84aa167fb2f1460) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sounds/Free_Game_Sound_FX/GameBurp FREE Game Sound FX Pack - WAV/BONG Bell Timer Hit Deep 01.wav using Guid(fb246aa464413034e84aa167fb2f1460) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6f87c63a1abcfcbc7ed6b003333a0512') in 0.014112 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/Sounds/Free_Game_Sound_FX/GameBurp FREE Game Sound FX Pack - WAV/COINS Collect Jackpot Win 03.wav
+  artifactKey: Guid(358fa3b11c9b7014c854095d566e3244) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sounds/Free_Game_Sound_FX/GameBurp FREE Game Sound FX Pack - WAV/COINS Collect Jackpot Win 03.wav using Guid(358fa3b11c9b7014c854095d566e3244) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '13bb15a3485eecd4fbc04553d8bbe4bb') in 0.017757 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000012 seconds.
+  path: Assets/Sounds/Free_Game_Sound_FX/GameBurp FREE Game Sound FX Pack - OGG/BOUNCE Twang Spring 13.ogg
+  artifactKey: Guid(d2167c0b6119c7e4a836cb8de53db2d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sounds/Free_Game_Sound_FX/GameBurp FREE Game Sound FX Pack - OGG/BOUNCE Twang Spring 13.ogg using Guid(d2167c0b6119c7e4a836cb8de53db2d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '68c8bfaf9caa2c6cdb270ec538438d76') in 0.011218 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+Editor requested this worker to shutdown with reason: Scaling down because of idle timeout
+TcpMessagingSession - receive error: operation aborted. errorcode: 995, details: The I/O operation has been aborted because of either a thread exit or an application request.
+AssetImportWorker is now disconnected from the server
+Process exiting
+Exiting without the bug reporter. Application will terminate with return code 0

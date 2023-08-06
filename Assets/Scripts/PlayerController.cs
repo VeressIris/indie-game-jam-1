@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     private Color idleDetColor = new Color(1, 0, 0, 0.18f);
     private Color detectedColor = new Color(0, 1, 0, 0.08f);
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSrc;
+    [SerializeField] private AudioClip[] footsteps;
+
     void Start()
     {
         mainCam = Camera.main;
@@ -40,7 +44,9 @@ public class PlayerController : MonoBehaviour
         if (canMove)
         {
             transform.position = Vector2.Lerp(transform.position, mousePos, speed * Time.deltaTime);
+            StartCoroutine(PlayFootsteps());
         }
+        else StopCoroutine(PlayFootsteps());
     }
 
     Vector2 GetMouseWorldPos()
@@ -101,5 +107,15 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = DetectSheep() ? detectionColor : idleColor;
 
         Gizmos.DrawSphere(transform.position, detectionRadius);
+    }
+
+    IEnumerator PlayFootsteps()
+    {
+        yield return new WaitForSeconds(0.582f);
+        if (!audioSrc.isPlaying)
+        {
+            audioSrc.clip = footsteps[Random.Range(0, footsteps.Length)];
+            audioSrc.Play();
+        }
     }
 }

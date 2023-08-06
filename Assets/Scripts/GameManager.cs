@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private SheepController[] sheepControllers;
     [SerializeField] private WolfController wolfController;
     private bool controllersDisabled = false;
+    [SerializeField] private PlayerController playerController;
 
     [Header("Limits")]
     [SerializeField] private Transform leftLimit;
@@ -37,6 +38,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
 
+    [Header("SFX")]
+    [SerializeField] private AudioSource audioSrc;
+    [SerializeField] private AudioClip loseSFX;
+    [SerializeField] private AudioClip winSFX;
+    [SerializeField] private AudioClip halfwaySFX;
+    private float halfwayMark;
+    private bool winSFXPlayed = false;
+    private bool loseSFXPlayed = false;
+
     void Awake()
     {
         Instance = this;
@@ -51,6 +61,9 @@ public class GameManager : MonoBehaviour
 
         sheepControllers = new SheepController[sheepNumber];
         GetSheepControllers();
+
+        halfwayMark = levelDuration / 2;
+        StartCoroutine(PlayHalfwayMarkSFX());
     }
 
     void Update()
@@ -58,10 +71,13 @@ public class GameManager : MonoBehaviour
         if (sheepInFence == sheepNumber) Win();
         else if (gameOver && !timeOut)
         {
+            playerController.canMove = false;
+
             if (wolfController.arrived)
             {
                 timer.SetActive(false);
                 loseScreen.SetActive(true);
+                PlayLoseSFX();
             }
 
             DisableSheepControllers();
@@ -76,6 +92,9 @@ public class GameManager : MonoBehaviour
             } 
             else
             {
+                PlayLoseSFX();
+                playerController.canMove = false;
+
                 timeOut = true;
                 timerText.text = "Time is out! The Wolf is coming!";
 
@@ -127,11 +146,6 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < previousPoints.Count; i++)
         {
-            //if (Vector2.Distance(vec, previousPoints[i]) < minDistance ||
-            //    Vector2.Distance(wolfTransform.position, previousPoints[i]) <= 2f)
-            //{
-            //    return false;
-            //}
             if (Vector2.Distance(vec, previousPoints[i]) < minDistance)
             {
                 return false;
@@ -196,8 +210,19 @@ public class GameManager : MonoBehaviour
 
     void Win()
     {
+        //play sfx
+        audioSrc.clip = winSFX;
+        if (!audioSrc.isPlaying && !winSFXPlayed)
+        {
+            audioSrc.Play();
+            winSFXPlayed = true;
+        }
+
+        //visuals
         timer.SetActive(false);
         winScreen.SetActive(true);
+
+        playerController.canMove = false;
     }
 
     public void QuitToMainMenu()
@@ -232,6 +257,25 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < sheepNumber; i++) sheepControllers[i].enabled = false;
             controllersDisabled = true;
+        }
+    }
+
+    IEnumerator PlayHalfwayMarkSFX()
+    {
+        yield return new WaitForSeconds(halfwayMark);
+        audioSrc.volume = 0.62f;
+        audioSrc.clip = halfwaySFX;
+        audioSrc.Play();
+    }
+
+    void PlayLoseSFX()
+    {
+        audioSrc.volume = 1f;
+        audioSrc.clip = loseSFX;
+        if (!audioSrc.isPlaying && !loseSFXPlayed) 
+        { 
+            audioSrc.Play();
+            loseSFXPlayed = true;
         }
     }
 }
