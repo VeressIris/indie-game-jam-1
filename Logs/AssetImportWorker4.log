@@ -2382,3 +2382,19 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 6580.490670 seconds.
+  path: Assets/Sprites/licos idle.png
+  artifactKey: Guid(6ed1f3d0d9f1ac047bc6e88f95074e25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/licos idle.png using Guid(6ed1f3d0d9f1ac047bc6e88f95074e25) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4fb473243624b7696903652792897a13') in 0.078065 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 68.998361 seconds.
+  path: Assets/Sprites/licos idle.png
+  artifactKey: Guid(dc16e218eb808e44793ca53f3bec063d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Sprites/licos idle.png using Guid(dc16e218eb808e44793ca53f3bec063d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbc84d7061556853f88d21a7fafc85b1') in 0.019638 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
