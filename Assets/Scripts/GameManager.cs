@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     [Header("Level")]
-    [SerializeField] private float levelDuration = 10f;
+    public float levelDuration = 10f;
     [SerializeField] private GameObject sheepPrefab;
     [SerializeField] private int sheepNumber = 5;
     private List<Vector2> previousSpawns = new List<Vector2>();
@@ -127,8 +127,12 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < previousPoints.Count; i++)
         {
-            if (Vector2.Distance(vec, previousPoints[i]) < minDistance ||
-                Vector2.Distance(wolfTransform.position, previousPoints[i]) <= 2f)
+            //if (Vector2.Distance(vec, previousPoints[i]) < minDistance ||
+            //    Vector2.Distance(wolfTransform.position, previousPoints[i]) <= 2f)
+            //{
+            //    return false;
+            //}
+            if (Vector2.Distance(vec, previousPoints[i]) < minDistance)
             {
                 return false;
             }

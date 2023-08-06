@@ -66,6 +66,8 @@ public class SheepController : MonoBehaviour
             {
                 canMove = false;
                 arrivedAtFinalPos = true;
+                GameManager.Instance.sheepInFence++;
+                Debug.Log(GameManager.Instance.sheepInFence);
             }
             else if (!isUnderPlayerInteraction) StartCoroutine(GetNewRandomPos());
             else if (isUnderPlayerInteraction)
@@ -78,12 +80,10 @@ public class SheepController : MonoBehaviour
 
     IEnumerator GetNewRandomPos()
     {
-        Debug.Log("waiting");
         randomPos = GameManager.Instance.GetRandomPos(minSheepDistance, transform);
         
         yield return new WaitForSeconds(Random.Range(0.85f, 2f));
         
-        Debug.Log("done waiting");
         destination = randomPos;
         canMove = true;
     }

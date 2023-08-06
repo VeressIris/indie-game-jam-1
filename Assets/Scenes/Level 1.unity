@@ -938,6 +938,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 359378399}
   m_CullTransparentMesh: 1
+--- !u!1 &463377266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 463377267}
+  m_Layer: 0
+  m_Name: Wolf Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &463377267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463377266}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.05, y: -3.74, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1637,7 +1668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8c7b2f030bc264e89ec42e0c6cca43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelDuration: 100
+  levelDuration: 45
   sheepPrefab: {fileID: 7601139586453129529, guid: 963e28f14a8b28643bc992e251094bfa, type: 3}
   sheepNumber: 5
   sheepInFence: 0
@@ -3436,6 +3467,7 @@ GameObject:
   - component: {fileID: 1484592395}
   - component: {fileID: 1484592397}
   - component: {fileID: 1484592398}
+  - component: {fileID: 1484592399}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Wolf
@@ -3483,10 +3515,10 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
-  m_FlipX: 0
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 1857919309, guid: adbb5e5bea370e6478d3a8f4d66dba23, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
@@ -3504,8 +3536,8 @@ Transform:
   m_GameObject: {fileID: 1484592394}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.3, y: -3.99, z: 0}
-  m_LocalScale: {x: 1.52, y: 0.77151513, z: 1.1515151}
+  m_LocalPosition: {x: -7.05, y: -6.74, z: 0}
+  m_LocalScale: {x: 0.2079513, y: 0.2079513, z: 0.2079513}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -3539,21 +3571,21 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.76843977, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 17.066668, y: 14.4}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.15, y: 1.34}
+  m_Size: {x: 12.473105, y: 9.164341}
   m_EdgeRadius: 0
 --- !u!114 &1484592398
 MonoBehaviour:
@@ -3570,6 +3602,29 @@ MonoBehaviour:
   fence: {fileID: 1289267758}
   speed: 3.2
   arrived: 0
+  sr: {fileID: 1484592395}
+  initSpawnPoint: {fileID: 463377267}
+--- !u!95 &1484592399
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484592394}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 715344e3a7f63664fb9288655709511d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1512993495
 GameObject:
   m_ObjectHideFlags: 0
@@ -4983,3 +5038,4 @@ SceneRoots:
   - {fileID: 1413266502}
   - {fileID: 1289267758}
   - {fileID: 1484592396}
+  - {fileID: 463377267}
