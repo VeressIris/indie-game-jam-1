@@ -79,10 +79,10 @@ public class FenceAreaController : MonoBehaviour
             for (int i = 0; i < collisions.Length; i++)
             {
                 sheep[i] = collisions[i].gameObject.GetComponent<SheepController>();
-                sheep[i].isInFence = true;
 
-                if (!sheep[i].arrivedAtFinalPos && !sheep[i].movingTowardsFinalPos)
+                if (!sheep[i].arrivedAtFinalPos && !sheep[i].movingTowardsFinalPos && sheep[i].isUnderPlayerInteraction)
                 {
+                    sheep[i].isInFence = true;
                     sheep[i].destination = GetRandomFencePos(1.2f);
                     sheep[i].movingTowardsFinalPos = true;
                 }

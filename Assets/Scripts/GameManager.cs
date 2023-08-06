@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public float levelDuration = 10f;
     [SerializeField] private GameObject sheepPrefab;
     public int sheepNumber = 5;
+    private int initSheepNumber;
     private List<Vector2> previousSpawns = new List<Vector2>();
     [HideInInspector] public int sheepInFence;
     [HideInInspector] public bool gameOver = false;
@@ -67,12 +68,19 @@ public class GameManager : MonoBehaviour
 
         halfwayMark = levelDuration / 2;
         StartCoroutine(PlayHalfwayMarkSFX());
+
+        initSheepNumber = sheepNumber;
     }
 
     void Update()
     {
-        if (sheepInFence == sheepNumber) Win();
-        else if (gameOver && !timeOut)
+        if (sheepNumber <= initSheepNumber / 3)
+        {
+            playerController.canMove = false;
+            gameOver = true;
+            timerText.text = "Too many of your sheep ran away!";
+        }
+        if (gameOver && !timeOut)
         {
             playerController.canMove = false;
 
@@ -85,6 +93,7 @@ public class GameManager : MonoBehaviour
 
             DisableSheepControllers();
         }
+        else if (sheepInFence == sheepNumber) Win();
         else
         {
             //timer

@@ -60,6 +60,7 @@ public class WolfController : MonoBehaviour
         {
             Debug.Log("Your sheep got eaten");
             GameManager.Instance.gameOver = true;
+            canMove = false;
         }
     }
 

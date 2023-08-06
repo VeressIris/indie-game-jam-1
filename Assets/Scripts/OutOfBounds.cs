@@ -17,6 +17,7 @@ public class OutOfBounds : MonoBehaviour
                 gameManager.lostSheep = true;
                 gameManager.sheepNumber--;
                 SheepController sheepController = sheep.GetComponent<SheepController>();
+                sheep.GetComponent<BoxCollider2D>().enabled = false;
                 sheepController.enabled = false;
             }
         }
